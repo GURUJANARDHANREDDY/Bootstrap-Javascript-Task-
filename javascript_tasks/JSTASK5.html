@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task-5</title>
+  <style>
+    .error-message {
+      color: red;
+      font-size: 12px;
+      margin-left: 10px;
+    }
+    .error-border {
+      border: 1px solid red;
+    }
+    input, textarea {
+      display: block;
+      margin-bottom: 10px;
+      padding: 8px;
+      width: 100%;
+      max-width: 300px;
+      box-sizing: border-box;
+    }
+    button {
+      padding: 10px 15px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+  <script>
+    function validateForm(event) {
+      event.preventDefault();
+      
+      var errorElements = document.getElementsByClassName("error-message");
+      var inputElements = document.getElementsByTagName("input");
+      var textareaElement = document.getElementById("message");
+
+      for (var i = 0; i < errorElements.length; i++) {
+        errorElements[i].innerHTML = "";
+      }
+
+      for (var i = 0; i < inputElements.length; i++) {
+        inputElements[i].classList.remove("error-border");
+      }
+
+      textareaElement.classList.remove("error-border");
+
+      var isValid = true;
+
+      var nameInput = document.getElementById("name");
+      if (nameInput.value.trim() === "") {
+        nameInput.classList.add("error-border");
+        document.getElementById("nameError").innerHTML = "This field is required";
+        isValid = false;
+      }
+
+      var emailInput = document.getElementById("email");
+      var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(emailInput.value.trim())) {
+        emailInput.classList.add("error-border");
+        document.getElementById("emailError").innerHTML = "A valid email address is required";
+        isValid = false;
+      }
+
+      var websiteInput = document.getElementById("website");
+      var websiteRegex = /^(ftp|http|https):\/\/[^ "]+$/;
+      if (websiteInput.value.trim() === "" || !websiteRegex.test(websiteInput.value.trim())) {
+        websiteInput.classList.add("error-border");
+        document.getElementById("websiteError").innerHTML = "A valid url is required";
+        isValid = false;
+      }
+
+      var messageInput = document.getElementById("message");
+      if (messageInput.value.trim() === "") {
+        messageInput.classList.add("error-border");
+        document.getElementById("messageError").innerHTML = "This field is required";
+        isValid = false;
+      }
+
+      if (isValid) {
+        submitForm();
+      }
+    }
+
+    function submitForm() {
+      
+      alert("Form submitted successfully!");
+      document.getElementById("myForm").reset(); 
+    }
+  </script>
+</head>
+<body>
+  <a href="../index.html">Back to Index Page</a>
+  <div style="max-width: 400px; margin: auto;">
+    <form id="myForm" onsubmit="validateForm(event)">
+      <label for="name">Name:</label>
+      <input type="text" name="name" id="name">
+      <span id="nameError" class="error-message"></span><br>
+
+      <label for="email">Email:</label>
+      <input type="email" name="email" id="email">
+      <span id="emailError" class="error-message"></span><br>
+
+      <label for="website">Website:</label>
+      <input type="url" name="website" id="website">
+      <span id="websiteError" class="error-message"></span><br>
+
+      <label for="message">Message:</label>
+      <textarea name="message" id="message" cols="30" rows="10"></textarea>
+      <span id="messageError" class="error-message"></span><br>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</body>
+</html>
